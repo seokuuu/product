@@ -25,7 +25,6 @@ const ProductDetailPage: React.FC = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
 
-                {/* Open Graph Meta Tags */}
                 {product && (
                     <>
                         <meta property="og:title" content={product.title} />
@@ -38,7 +37,7 @@ const ProductDetailPage: React.FC = () => {
             </Head>
 
             <main className="min-h-screen bg-gray-50">
-                {/* Header */}
+                {/* 헤더 */}
                 <header className="bg-white shadow-sm border-b">
                     <div className="max-w-7xl mx-auto px-4 py-4">
                         <div className="flex items-center justify-between">
@@ -54,7 +53,7 @@ const ProductDetailPage: React.FC = () => {
                     </div>
                 </header>
 
-                {/* Product Detail Content */}
+                {/* 상품 상세 */}
                 <ProductDetail />
             </main>
         </>

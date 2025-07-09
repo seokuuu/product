@@ -29,7 +29,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
     skip: 0,
     total: 0,
 
-    // Fetch initial products
+    // Fetch
     fetchProducts: async () => {
         set({ loading: true, error: null });
 
@@ -52,7 +52,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
         }
     },
 
-    // Load more products (infinite scroll)
+    // 무한 스크롤
     loadMoreProducts: async () => {
         const { loading, hasMore, skip, products } = get();
 
@@ -78,7 +78,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
         }
     },
 
-    // Reset products state
+    // Reset
     resetProducts: () => {
         set({
             products: [],
@@ -90,7 +90,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
         });
     },
 
-    // Search products
+    // 검색
     searchProducts: async (query: string) => {
         set({ loading: true, error: null });
 

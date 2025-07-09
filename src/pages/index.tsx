@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
             </Head>
 
             <main className="min-h-screen bg-gray-50">
-                {/* Header */}
+                {/* 헤더 */}
                 <header className="bg-white shadow-sm border-b">
                     <div className="max-w-7xl mx-auto px-4 py-6">
                         <div className="flex items-center justify-between">
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
                     </div>
                 </header>
 
-                {/* Main Content */}
+                {/* 메인 컨텐츠 */}
                 <div className="max-w-7xl mx-auto px-4 py-8">
                     <div className="mb-8">
                         <h2 className="text-2xl font-semibold text-gray-800 mb-2">
@@ -41,7 +41,7 @@ const HomePage: React.FC = () => {
                     <ProductList />
                 </div>
 
-                {/* Footer */}
+                {/* 푸터 */}
                 <footer className="bg-white border-t mt-16">
                     <div className="max-w-7xl mx-auto px-4 py-8">
                         <div className="text-center text-gray-600">

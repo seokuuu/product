@@ -51,7 +51,7 @@ const ProductList: React.FC<ProductListProps> = ({ className = '' }) => {
 
     return (
         <div className={`w-full ${className}`}>
-            {/* Products Grid */}
+            {/* 상품 그리드 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {products.map((product, index) => (
                     <div
@@ -63,14 +63,14 @@ const ProductList: React.FC<ProductListProps> = ({ className = '' }) => {
                 ))}
             </div>
 
-            {/* Loading Spinner */}
+            {/* 로딩 스피너 */}
             {loading && (
                 <div className="flex justify-center items-center py-8">
                     <Spinner size="40px" />
                 </div>
             )}
 
-            {/* End of List Message */}
+            {/* 목록 끝 */}
             {!hasMore && products.length > 0 && (
                 <div className="text-center py-8 text-gray-500">
                     <p>모든 상품을 불러왔습니다. (총 {products.length}개)</p>

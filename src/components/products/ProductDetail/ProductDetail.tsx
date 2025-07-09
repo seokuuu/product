@@ -69,7 +69,7 @@ const ProductDetail: React.FC = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            {/* Breadcrumb */}
+            {/* 브레드크럼 */}
             <nav className="mb-6">
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                     <Link href="/" className="hover:text-blue-600">
@@ -83,14 +83,14 @@ const ProductDetail: React.FC = () => {
             </nav>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                {/* Image Gallery */}
+                {/* 이미지 갤러리 */}
                 <div>
                     <ProductImageGallery images={product.images} title={product.title} />
                 </div>
 
-                {/* Product Info */}
+                {/* 상품 정보 */}
                 <div className="flex flex-col gap-6">
-                    {/* Basic Info */}
+                    {/* 기본 정보 */}
                     <div>
                         <div className="flex items-center gap-2 mb-2">
                             <span className="text-sm text-gray-500 capitalize">{product.brand}</span>
@@ -99,7 +99,7 @@ const ProductDetail: React.FC = () => {
                         </div>
                         <h1 className="text-2xl font-bold text-gray-900 mb-4">{product.title}</h1>
 
-                        {/* Rating */}
+                        {/* 평점 */}
                         <div className="flex items-center gap-2 mb-4">
                             <div className="flex items-center">
                                 <span className="text-yellow-500">★</span>
@@ -109,7 +109,7 @@ const ProductDetail: React.FC = () => {
                             <span className="text-sm text-gray-600">{product.reviews.length}개 리뷰</span>
                         </div>
 
-                        {/* Price */}
+                        {/* 가격 */}
                         <div className="mb-6">
                             {hasDiscount && (
                                 <div className="flex items-center gap-2 mb-1">
@@ -125,13 +125,13 @@ const ProductDetail: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Description */}
+                    {/* 설명 */}
                     <div>
                         <h3 className="text-lg font-semibold mb-3">상품 설명</h3>
                         <p className="text-gray-700 leading-relaxed">{product.description}</p>
                     </div>
 
-                    {/* Tags */}
+                    {/* 태그 */}
                     {product.tags && product.tags.length > 0 && (
                         <div>
                             <h3 className="text-lg font-semibold mb-3">태그</h3>
@@ -148,7 +148,7 @@ const ProductDetail: React.FC = () => {
                         </div>
                     )}
 
-                    {/* Stock Status */}
+                    {/* 재고 상태 */}
                     <div>
                         <h3 className="text-lg font-semibold mb-3">재고 정보</h3>
                         <div className="flex items-center gap-4">
@@ -163,7 +163,7 @@ const ProductDetail: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Additional Info */}
+                    {/* 추가 정보 */}
                     <div className="border-t pt-6">
                         <h3 className="text-lg font-semibold mb-3">추가 정보</h3>
                         <div className="space-y-2 text-sm">
@@ -194,7 +194,7 @@ const ProductDetail: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Back Button */}
+                    {/* 뒤로 가기 버튼 */}
                     <div className="pt-6">
                         <Link
                             href="/"

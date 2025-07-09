@@ -39,7 +39,7 @@ export const useProductDetailStore = create<ProductDetailStore>((set) => ({
         }
     },
 
-    // Clear product data
+    // Clear
     clearProduct: () => {
         set({
             product: null,

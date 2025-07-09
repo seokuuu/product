@@ -22,7 +22,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
 
     return (
         <div className="flex flex-col gap-4">
-            {/* Main Image */}
+            {/* 메인 이미지 */}
             <div className="relative w-full h-96 bg-gray-100 rounded-lg overflow-hidden">
                 <Image
                     fill
@@ -34,7 +34,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
                 />
             </div>
 
-            {/* Thumbnail Images */}
+            {/* 썸네일 이미지 */}
             {images.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto pb-2">
                     {images.map((image, index) => (
@@ -60,7 +60,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
                 </div>
             )}
 
-            {/* Image Counter */}
+            {/* 이미지 카운터 */}
             <div className="text-center text-sm text-gray-500">
                 {selectedImageIndex + 1} / {images.length}
             </div>
