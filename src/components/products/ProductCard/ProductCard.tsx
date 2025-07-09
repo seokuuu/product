@@ -10,7 +10,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         : product.price;
 
     return (
-        <article className="flex flex-col w-full max-w-[280px] gap-3">
+        <article className="flex flex-col w-full  gap-3">
             <Link href={`/products/${product.id}`}>
                 <div className="relative w-full h-[280px] overflow-hidden rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
                     {product.thumbnail ? (

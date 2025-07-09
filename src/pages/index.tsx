@@ -20,9 +20,7 @@ const HomePage: React.FC = () => {
                             <h1 className="text-3xl font-bold text-gray-900">
                                 ARTINUS Shop
                             </h1>
-                            <div className="text-sm text-gray-600">
-                                프론트엔드 개발자 과제
-                            </div>
+
                         </div>
                     </div>
                 </header>
@@ -45,7 +43,7 @@ const HomePage: React.FC = () => {
                 <footer className="bg-white border-t mt-16">
                     <div className="max-w-7xl mx-auto px-4 py-8">
                         <div className="text-center text-gray-600">
-                            <p>&copy; 2024 ARTINUS Frontend Assignment. All rights reserved.</p>
+                            <p> 2025 ARTINUS Frontend Assignment. All rights reserved.</p>
                             <p className="mt-2 text-sm">
                                 Powered by{' '}
                                 <a
