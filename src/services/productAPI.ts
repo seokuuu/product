@@ -3,7 +3,6 @@ import { Product, ProductsResponse } from '@/types/product';
 const BASE_URL = 'https://dummyjson.com';
 
 export const productAPI = {
-    // 상품 목록 조회
     getProducts: async (limit: number = 20, skip: number = 0): Promise<ProductsResponse> => {
         try {
             const response = await fetch(`${BASE_URL}/products?limit=${limit}&skip=${skip}`);
