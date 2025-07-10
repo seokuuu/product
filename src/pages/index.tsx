@@ -139,12 +139,7 @@ const HomePage: React.FC = () => {
                                     : '전체 상품'
                             }
                         </h2>
-                        <p className="text-gray-600">
-                            {currentSearch || currentCategory
-                                ? `필터가 적용된 상품을 확인하세요.`
-                                : `다양한 카테고리의 상품들을 둘러보세요. 스크롤하면 더 많은 상품을 볼 수 있습니다.`
-                            }
-                        </p>
+
                     </div>
 
                     <ProductList />
