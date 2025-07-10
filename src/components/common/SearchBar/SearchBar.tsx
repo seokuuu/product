@@ -22,6 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             } else {
                 // 검색어가 비어있으면 전체 목록 다시 로드
                 fetchProducts();
+                onSearch?.('');
             }
         }, 300);
 
@@ -43,6 +44,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     const handleClear = () => {
         setSearchQuery('');
         fetchProducts();
+        onSearch?.('');
     };
 
     return (
@@ -82,12 +84,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 )}
             </div>
 
-            {/* 검색 결과 힌트 */}
-            {searchQuery && (
-                <div className="absolute top-full mt-1 text-sm text-gray-500">
-                    "{searchQuery}" 검색 중...
-                </div>
-            )}
+
         </div>
     );
 };
