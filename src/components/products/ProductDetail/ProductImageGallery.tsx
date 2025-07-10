@@ -23,10 +23,10 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
     return (
         <div className="flex flex-col gap-4">
             {/* 메인 이미지 */}
-            <div className="relative w-full h-96 bg-gray-100 rounded-lg overflow-hidden">
+            <div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
                 <Image
                     fill
-                    className="object-cover"
+                    className="object-contain"
                     src={images[selectedImageIndex]}
                     alt={`${title} - 이미지 ${selectedImageIndex + 1}`}
                     sizes="(max-width: 768px) 100vw, 50vw"
