@@ -3,6 +3,8 @@ import Head from 'next/head';
 import ProductList from '@/components/products/ProductList/ProductList';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import SortFilter, {OrderOption, SortOption} from "@components/common/Filter/SortFilter";
+import CategoryChipFilter from "@components/common/Filter/CategoryChipFilter";
+import { useProductStore } from '@/store/useProductStore';
 
 
 const HomePage: React.FC = () => {
@@ -10,6 +12,7 @@ const HomePage: React.FC = () => {
     const [currentSort, setCurrentSort] = useState<SortOption>('title');
     const [currentOrder, setCurrentOrder] = useState<OrderOption>('asc');
     const [currentCategory, setCurrentCategory] = useState('');
+    const { fetchProductsByCategory, fetchProductsWithSort, fetchProducts } = useProductStore();
 
     const handleSearch = (query: string) => {
         setCurrentSearch(query);
@@ -26,12 +29,31 @@ const HomePage: React.FC = () => {
         setCurrentOrder(order);
         // 정렬 변경 시 검색 초기화
         setCurrentSearch('');
+        
+        // API 호출
+        if (currentCategory) {
+            fetchProductsByCategory(currentCategory, sortBy, order);
+        } else {
+            fetchProductsWithSort(sortBy, order);
+        }
     };
 
     const handleCategoryChange = (category: string) => {
         setCurrentCategory(category);
         // 카테고리 변경 시 검색 초기화
         setCurrentSearch('');
+        
+        // API 호출
+        if (category) {
+            fetchProductsByCategory(category, currentSort, currentOrder);
+        } else {
+            // 전체 선택 시 기본 상품 로드
+            if (currentSort !== 'title' || currentOrder !== 'asc') {
+                fetchProductsWithSort(currentSort, currentOrder);
+            } else {
+                fetchProducts();
+            }
+        }
     };
 
     const getFilterChips = () => {
@@ -105,11 +127,56 @@ const HomePage: React.FC = () => {
                             />
                         </div>
 
-                        {/* Sort & Filter */}
-                        <SortFilter
-                            onSortChange={handleSortChange}
-                            onCategoryChange={handleCategoryChange}
-                        />
+                        {/* Category Filter */}
+                        <div className="bg-white rounded-lg shadow-sm border p-4">
+                            <CategoryChipFilter
+                                onCategoryChange={handleCategoryChange}
+                                selectedCategory={currentCategory}
+                            />
+                        </div>
+
+                        {/* Sort Filter */}
+                        <div className="bg-white rounded-lg shadow-sm border p-4">
+                            <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2">
+                                    <label className="text-sm font-medium text-gray-700 whitespace-nowrap">정렬:</label>
+                                    <select
+                                        value={currentSort}
+                                        onChange={(e) => handleSortChange(e.target.value as SortOption, currentOrder)}
+                                        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        <option value="title">이름순</option>
+                                        <option value="price">가격순</option>
+                                        <option value="rating">평점순</option>
+                                        <option value="stock">재고순</option>
+                                    </select>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="text-sm font-medium text-gray-700 whitespace-nowrap">순서:</label>
+                                    <select
+                                        value={currentOrder}
+                                        onChange={(e) => handleSortChange(currentSort, e.target.value as OrderOption)}
+                                        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        <option value="asc">오름차순</option>
+                                        <option value="desc">내림차순</option>
+                                    </select>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        setCurrentSort('title');
+                                        setCurrentOrder('asc');
+                                        setCurrentCategory('');
+                                        setCurrentSearch('');
+                                        // 초기화 시 기본 상품 로드
+                                        fetchProducts();
+                                    }}
+                                    className="px-4 py-2 text-sm bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors whitespace-nowrap"
+                                >
+                                    초기화
+                                </button>
+                            </div>
+                        </div>
 
                         {/* Filter Status Chips */}
                         {getFilterChips().length > 0 && (

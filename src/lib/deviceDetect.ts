@@ -1,0 +1,1 @@
+export const isMob = typeof window !== 'undefined' && window.innerWidth <= 768;
