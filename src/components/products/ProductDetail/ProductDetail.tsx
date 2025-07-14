@@ -16,7 +16,7 @@ const ProductDetail: React.FC = () => {
     const [orderQuantity, setOrderQuantity] = useState(1);
 
     const { product, loading, error, fetchProduct } = useProductDetailStore();
-    const { searchProducts } = useProductStore();
+    const { searchProducts, fetchProductsByCategory, fetchProducts } = useProductStore();
 
     useEffect(() => {
         if (id && typeof id === 'string') {
@@ -85,6 +85,16 @@ const ProductDetail: React.FC = () => {
         router.push('/');
     };
 
+    const handleHomeClick = async () => {
+        await fetchProducts();
+        router.push('/');
+    };
+
+    const handleCategoryClick = async (category: string) => {
+        await fetchProductsByCategory(category, "title", "asc");
+        router.push('/');
+    };
+
     // 구조화된 데이터 (JSON-LD) 생성
     const structuredData = {
         "@context": "https://schema.org",
@@ -128,11 +138,19 @@ const ProductDetail: React.FC = () => {
             {/* Breadcrumb */}
             <nav className="mb-6">
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
-                    <Link href="/" className="hover:text-blue-600">
+                    <button 
+                        onClick={handleHomeClick}
+                        className="hover:text-blue-600 cursor-pointer"
+                    >
                         홈
-                    </Link>
+                    </button>
                     <span>/</span>
-                    <span className="capitalize">{product.category}</span>
+                    <button 
+                        onClick={() => handleCategoryClick(product.category)}
+                        className="capitalize hover:text-blue-600 cursor-pointer"
+                    >
+                        {product.category}
+                    </button>
                     <span>/</span>
                     <span className="text-gray-900 font-medium truncate">{product.title}</span>
                 </div>
