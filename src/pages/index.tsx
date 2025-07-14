@@ -214,7 +214,7 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 pb-8">
+        <div className="max-w-7xl mx-auto px-4 pb-8 h-[54vh] ">
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">
               {currentSearchQuery
