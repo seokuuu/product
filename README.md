@@ -2,9 +2,12 @@
 
 DummyJSON Products API를 사용한 상품 목록/상세 페이지 구현
 
+## Github
+https://github.com/seokuuu/product
 
 ## 🚀 배포 URL
 https://artinus-seokwon.vercel.app/
+
 
 ## 📋 개발 환경
 - **Framework**: Next.js 14
