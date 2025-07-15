@@ -30,7 +30,20 @@ DummyJSON Products API를 사용한 상품 목록/상세 페이지 구현
 - 반응형 디자인
 - SEO 최적화
 
+## 📦 상태 관리 (Zustand)
+
+1. 상품 목록 관리 (useProductStore)
+- 상품 데이터, 필터링, 정렬, 검색
+- 무한 스크롤 구현
+- 로딩 상태 관리
+
+2. 상품 상세 관리 (useProductDetailStore)
+- 단일 상품 상세 정보
+- 상품 상세 페이지 전용
+
+
 ## 🛠️ 빌드 및 실행 방법
+yarn build
 
 ### 개발 환경 실행
 ```bash
@@ -46,9 +59,7 @@ yarn dev
 # 빌드
 yarn build
 
-# 정적 파일 생성 (GitHub Pages용)
-yarn deploy
-```
+
 
 
 **© 2025 ARTINUS Frontend Assignment**  
