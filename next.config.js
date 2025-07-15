@@ -23,9 +23,9 @@ const nextConfig = {
         // optimizeCss: true, // 개발 환경에서 문제가 있어서 주석 처리
     },
 
-    // 정적 내보내기를 위한 설정
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/artinus-frontend-assignment' : '',
-    basePath: process.env.NODE_ENV === 'production' ? '/artinus-frontend-assignment' : '',
+    // Vercel 배포를 위한 설정 (assetPrefix, basePath 제거)
+    // assetPrefix: process.env.NODE_ENV === 'production' ? '/artinus-frontend-assignment' : '',
+    // basePath: process.env.NODE_ENV === 'production' ? '/artinus-frontend-assignment' : '',
 };
 
 module.exports = nextConfig;
