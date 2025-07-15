@@ -10,6 +10,7 @@ const ProductList: React.FC<ProductListProps> = ({ className = '' }) => {
     const {
         products,
         loading,
+        infiniteLoading,
         error,
         hasMore,
         fetchProducts,
@@ -18,7 +19,7 @@ const ProductList: React.FC<ProductListProps> = ({ className = '' }) => {
 
     const { lastElementRef } = useIntersectionObserver({
         hasMore,
-        loading,
+        loading: infiniteLoading,
         onLoadMore: loadMoreProducts,
     });
 
@@ -63,15 +64,22 @@ const ProductList: React.FC<ProductListProps> = ({ className = '' }) => {
                 ))}
             </div>
 
-            {/* 로딩 스피너 */}
-            {loading && (
+            {/* 초기 로딩 스피너 (상품이 없을 때만) */}
+            {loading && products.length === 0 && (
                 <div className="flex justify-center items-center py-8">
                     <Spinner size="40px" />
                 </div>
             )}
 
+            {/* 무한 스크롤 로딩 스피너 (작은 스피너) */}
+            {infiniteLoading && (
+                <div className="flex justify-center items-center py-4">
+                    <div className="animate-spin rounded-full h-6 w-6 border-2 border-gray-300 border-t-blue-500"></div>
+                </div>
+            )}
+
             {/* 목록 끝 */}
-            {!hasMore && products.length > 0 && (
+            {!hasMore && products.length > 0 && !infiniteLoading && (
                 <div className="text-center py-8 text-gray-500">
                     <p>모든 상품을 불러왔습니다. (총 {products.length}개)</p>
                 </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CategoryChip } from "@/components/common/CategoryChip/CategoryChip";
+import { useProductStore } from "@/store/useProductStore";
 
 interface CategoryChipFilterProps {
   onCategoryChange?: (category: string) => void;
@@ -15,6 +16,7 @@ const CategoryChipFilter: React.FC<CategoryChipFilterProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const { loading } = useProductStore();
 
   // 카테고리 목록 로드
   useEffect(() => {
@@ -150,6 +152,7 @@ const CategoryChipFilter: React.FC<CategoryChipFilterProps> = ({
               category="전체"
               isActive={selectedCategory === ""}
               onClick={() => handleCategoryClick("")}
+              disabled={loading}
             />
           </div>
 
@@ -163,9 +166,11 @@ const CategoryChipFilter: React.FC<CategoryChipFilterProps> = ({
                 category={category}
                 isActive={selectedCategory === category}
                 onClick={() => handleCategoryClick(category)}
+                disabled={loading}
               />
             </div>
           ))}
+          
 
           <style jsx>{`
             div::-webkit-scrollbar {

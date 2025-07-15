@@ -11,8 +11,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                                                  onSearch
                                              }) => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [isSearching, setIsSearching] = useState(false);
-    const { searchProducts, fetchProducts } = useProductStore();
+    const { searchProducts, fetchProducts, searchLoading } = useProductStore();
 
     // 디바운스 처리
     useEffect(() => {
@@ -32,12 +31,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
     const handleSearch = async (query: string) => {
         if (!query.trim()) return;
 
-        setIsSearching(true);
         try {
             await searchProducts(query);
             onSearch?.(query);
-        } finally {
-            setIsSearching(false);
+        } catch (error) {
+            console.error('Search failed:', error);
         }
     };
 
@@ -60,7 +58,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
                 {/* 검색 아이콘 */}
                 <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                    {isSearching ? (
+                    {searchLoading ? (
                         <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-blue-600"></div>
                     ) : (
                         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -6,6 +6,8 @@ interface ProductStore {
     // State
     products: Product[];
     loading: boolean;
+    searchLoading: boolean;
+    infiniteLoading: boolean;
     error: string | null;
     hasMore: boolean;
     skip: number;
@@ -32,6 +34,8 @@ export const useProductStore = create<ProductStore>((set, get) => ({
     // Initial state
     products: [],
     loading: false,
+    searchLoading: false,
+    infiniteLoading: false,
     error: null,
     hasMore: true,
     skip: 0,
@@ -114,11 +118,11 @@ export const useProductStore = create<ProductStore>((set, get) => ({
 
     // Load more products (infinite scroll)
     loadMoreProducts: async () => {
-        const { loading, hasMore, skip, products, currentCategory, currentSort, currentOrder, currentSearchQuery } = get();
+        const { infiniteLoading, hasMore, skip, products, currentCategory, currentSort, currentOrder, currentSearchQuery } = get();
 
-        if (loading || !hasMore) return;
+        if (infiniteLoading || !hasMore) return;
 
-        set({ loading: true });
+        set({ infiniteLoading: true });
 
         try {
             let response;
@@ -137,12 +141,12 @@ export const useProductStore = create<ProductStore>((set, get) => ({
                 products: [...products, ...response.products],
                 skip: skip + LIMIT,
                 hasMore: response.products.length === LIMIT && response.skip + LIMIT < response.total,
-                loading: false,
+                infiniteLoading: false,
             });
         } catch (error) {
             set({
                 error: error instanceof Error ? error.message : 'Failed to load more products',
-                loading: false,
+                infiniteLoading: false,
                 hasMore: false,
             });
         }
@@ -166,7 +170,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
 
     // Search products
     searchProducts: async (query: string) => {
-        set({ loading: true, error: null, currentSearchQuery: query, currentCategory: '', currentSort: 'title', currentOrder: 'asc' });
+        set({ searchLoading: true, error: null, currentSearchQuery: query, currentCategory: '', currentSort: 'title', currentOrder: 'asc' });
 
         try {
             const response = await productAPI.searchProducts(query, LIMIT, 0);
@@ -176,12 +180,12 @@ export const useProductStore = create<ProductStore>((set, get) => ({
                 total: response.total,
                 skip: LIMIT,
                 hasMore: response.products.length === LIMIT && response.skip + LIMIT < response.total,
-                loading: false,
+                searchLoading: false,
             });
         } catch (error) {
             set({
                 error: error instanceof Error ? error.message : 'Failed to search products',
-                loading: false,
+                searchLoading: false,
                 hasMore: false,
             });
         }

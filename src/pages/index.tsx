@@ -19,6 +19,8 @@ const HomePage: React.FC = () => {
     currentSearchQuery,
     products,
     currentCategory,
+    searchLoading,
+    loading,
   } = useProductStore();
 
   // 검색 시 카테고리와 정렬 상태 초기화
@@ -162,7 +164,8 @@ const HomePage: React.FC = () => {
                           currentOrder
                         )
                       }
-                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      disabled={loading}
+                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option value="title">이름순</option>
                       <option value="price">가격순</option>
@@ -179,7 +182,8 @@ const HomePage: React.FC = () => {
                           e.target.value as OrderOption
                         )
                       }
-                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      disabled={loading}
+                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <option value="asc">오름차순</option>
                       <option value="desc">내림차순</option>
@@ -214,7 +218,7 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 pb-8 h-[54vh] ">
+        <div className="max-w-7xl mx-auto px-4 pb-8 min-h-[60vh]">
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">
               {currentSearchQuery
@@ -235,8 +239,13 @@ const HomePage: React.FC = () => {
             )}
           </div>
 
-          {/* 검색 결과가 없을 때 메시지 표시 */}
-          {currentSearchQuery && products.length === 0 ? (
+          {/* 로딩 스피너 (검색, 정렬, 카테고리 필터 등) */}
+          {(searchLoading || loading) ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-blue-500"></div>
+            </div>
+          ) : /* 검색 결과가 없을 때 메시지 표시 */
+          currentSearchQuery && products.length === 0 ? (
             <div className="text-center py-6">
               <svg
                 className="w-12 h-12 mx-auto text-gray-400 mb-3"
@@ -266,7 +275,7 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <footer className="bg-white border-t mt-16 hidden md:block">
+        <footer className="bg-white border-t mt-8">
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="text-center text-gray-600">
               <p>
