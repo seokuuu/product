@@ -98,21 +98,6 @@ export const productAPI = {
         }
     },
 
-    // 카테고리 목록 조회
-    getCategories: async (): Promise<Array<{ slug: string; name: string; url: string }>> => {
-        try {
-            const response = await fetch(`${BASE_URL}/products/categories`);
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error('Failed to fetch categories:', error);
-            throw error;
-        }
-    },
 
     // 카테고리 리스트 조회 (간단한 문자열 배열)
     getCategoryList: async (): Promise<string[]> => {
@@ -130,26 +115,5 @@ export const productAPI = {
         }
     },
 
-    // 최적화된 상품 조회 (선택된 필드만)
-    getProductsOptimized: async (
-        fields: string[] = ['id', 'title', 'price', 'thumbnail', 'rating', 'stock'],
-        limit: number = 20,
-        skip: number = 0
-    ): Promise<ProductsResponse> => {
-        try {
-            const selectFields = fields.join(',');
-            const response = await fetch(
-                `${BASE_URL}/products?select=${selectFields}&limit=${limit}&skip=${skip}`
-            );
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error('Failed to fetch optimized products:', error);
-            throw error;
-        }
-    }
 };

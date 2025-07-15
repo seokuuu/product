@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CategoryChip } from "@/components/common/CategoryChip/CategoryChip";
 import { useProductStore } from "@/store/useProductStore";
+import { productAPI } from "@/services/productAPI";
 
 interface CategoryChipFilterProps {
   onCategoryChange?: (category: string) => void;
@@ -22,10 +23,7 @@ const CategoryChipFilter: React.FC<CategoryChipFilterProps> = ({
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const response = await fetch(
-          "https://dummyjson.com/products/category-list"
-        );
-        const categoryList = await response.json();
+        const categoryList = await productAPI.getCategoryList();
         setCategories(categoryList);
       } catch (error) {
         console.error("Failed to load categories:", error);

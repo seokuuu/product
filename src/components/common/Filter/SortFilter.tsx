@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useProductStore } from "@/store/useProductStore";
 import { DropDown } from "@components/common/Dropdown/Dropdown";
+import { productAPI } from "@/services/productAPI";
 
 export type SortOption = "title" | "price" | "rating" | "stock";
 export type OrderOption = "asc" | "desc";
@@ -57,10 +58,7 @@ const SortFilter: React.FC<SortFilterProps> = ({
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const response = await fetch(
-          "https://dummyjson.com/products/category-list"
-        );
-        const categoryList = await response.json();
+        const categoryList = await productAPI.getCategoryList();
         setCategories(categoryList);
       } catch (error) {
         console.error("Failed to load categories:", error);
