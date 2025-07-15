@@ -50,7 +50,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
             <div className="bg-white rounded-lg shadow-sm border p-4">
               <CategoryChipFilter
                 onCategoryChange={onCategoryChange}
-                selectedCategory={currentCategory}
+                selectedCategory={currentCategory ?? undefined}
               />
             </div>
 
