@@ -49,11 +49,7 @@ const HomePage: React.FC = () => {
       fetchProductsByCategory(category, currentSort, currentOrder);
     } else {
       // 전체 선택 시 현재 정렬 유지
-      if (currentSort !== "title" || currentOrder !== "asc") {
-        fetchProductsWithSort(currentSort, currentOrder);
-      } else {
-        fetchProducts();
-      }
+      fetchProductsWithSort(currentSort, currentOrder);
     }
   };
 
