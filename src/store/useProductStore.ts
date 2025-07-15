@@ -19,6 +19,11 @@ interface ProductStore {
     currentOrder: string;
     currentSearchQuery: string;
 
+    // Category state
+    categories: string[];
+    categoriesLoading: boolean;
+    categoriesError: string | null;
+
     // Actions
     fetchProducts: () => Promise<void>;
     fetchProductsWithSort: (sortBy: string, order: string) => Promise<void>;
@@ -26,6 +31,7 @@ interface ProductStore {
     loadMoreProducts: () => Promise<void>;
     resetProducts: () => void;
     searchProducts: (query: string) => Promise<void>;
+    fetchCategories: () => Promise<void>;
 }
 
 const LIMIT = 20;
@@ -47,8 +53,18 @@ export const useProductStore = create<ProductStore>((set, get) => ({
     currentOrder: 'asc',
     currentSearchQuery: '',
 
+    // Category state
+    categories: [],
+    categoriesLoading: false,
+    categoriesError: null,
+
     // Fetch initial products
     fetchProducts: async () => {
+        const { loading, products } = get();
+        
+        // 이미 로딩 중이거나 상품이 있으면 중복 호출 방지
+        if (loading || products.length > 0) return;
+
         set({ loading: true, error: null, currentCategory: '', currentSort: 'title', currentOrder: 'asc', currentSearchQuery: '' });
 
         try {
@@ -187,6 +203,29 @@ export const useProductStore = create<ProductStore>((set, get) => ({
                 error: error instanceof Error ? error.message : 'Failed to search products',
                 searchLoading: false,
                 hasMore: false,
+            });
+        }
+    },
+
+    // Fetch categories
+    fetchCategories: async () => {
+        const { categories, categoriesLoading } = get();
+        
+        // 이미 카테고리가 있거나 로딩 중이면 호출하지 않음
+        if (categories.length > 0 || categoriesLoading) return;
+
+        set({ categoriesLoading: true, categoriesError: null });
+
+        try {
+            const categoryList = await productAPI.getCategoryList();
+            set({
+                categories: categoryList,
+                categoriesLoading: false,
+            });
+        } catch (error) {
+            set({
+                categoriesError: error instanceof Error ? error.message : 'Failed to fetch categories',
+                categoriesLoading: false,
             });
         }
     },

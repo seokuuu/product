@@ -27,7 +27,7 @@ const ProductList: React.FC<ProductListProps> = ({ className = '' }) => {
         if (products.length === 0) {
             fetchProducts();
         }
-    }, [fetchProducts, products.length]);
+    }, [products.length]);
 
     if (error) {
         return (

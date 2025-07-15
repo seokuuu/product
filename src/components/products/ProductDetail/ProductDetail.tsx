@@ -22,7 +22,7 @@ const ProductDetail: React.FC = () => {
         if (id && typeof id === 'string') {
             fetchProduct(id);
         }
-    }, [id, fetchProduct]);
+    }, [id]);
 
     useEffect(() => {
         if (product) {

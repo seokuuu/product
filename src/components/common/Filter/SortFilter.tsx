@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useProductStore } from "@/store/useProductStore";
 import { DropDown } from "@components/common/Dropdown/Dropdown";
-import { productAPI } from "@/services/productAPI";
 
 export type SortOption = "title" | "price" | "rating" | "stock";
 export type OrderOption = "asc" | "desc";
@@ -18,9 +17,8 @@ const SortFilter: React.FC<SortFilterProps> = ({
   const [sortBy, setSortBy] = useState<SortOption>("title");
   const [order, setOrder] = useState<OrderOption>("asc");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [categories, setCategories] = useState<string[]>([]);
 
-  const { fetchProductsWithSort, fetchProductsByCategory, fetchProducts } =
+  const { fetchProductsWithSort, fetchProductsByCategory, fetchProducts, categories, fetchCategories } =
     useProductStore();
 
   // 카테고리 옵션 생성
@@ -56,15 +54,7 @@ const SortFilter: React.FC<SortFilterProps> = ({
 
   // 카테고리 목록 로드
   useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const categoryList = await productAPI.getCategoryList();
-        setCategories(categoryList);
-      } catch (error) {
-        console.error("Failed to load categories:", error);
-      }
-    };
-    loadCategories();
+    fetchCategories();
   }, []);
 
   const handleSortChange = (newSortBy: SortOption, newOrder: OrderOption) => {

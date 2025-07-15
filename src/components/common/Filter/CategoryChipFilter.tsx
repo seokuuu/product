@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { CategoryChip } from "@/components/common/CategoryChip/CategoryChip";
 import { useProductStore } from "@/store/useProductStore";
-import { productAPI } from "@/services/productAPI";
 
 interface CategoryChipFilterProps {
   onCategoryChange?: (category: string) => void;
@@ -12,24 +11,15 @@ const CategoryChipFilter: React.FC<CategoryChipFilterProps> = ({
   onCategoryChange,
   selectedCategory = "",
 }) => {
-  const [categories, setCategories] = useState<string[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const { loading } = useProductStore();
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [startX, setStartX] = React.useState(0);
+  const [scrollLeft, setScrollLeft] = React.useState(0);
+  const { loading, categories, fetchCategories } = useProductStore();
 
   // 카테고리 목록 로드
   useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const categoryList = await productAPI.getCategoryList();
-        setCategories(categoryList);
-      } catch (error) {
-        console.error("Failed to load categories:", error);
-      }
-    };
-    loadCategories();
+    fetchCategories();
   }, []);
 
   const handleCategoryClick = (category: string) => {
