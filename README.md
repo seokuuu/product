@@ -42,9 +42,6 @@ DummyJSON Products API를 사용한 상품 목록/상세 페이지 구현
 - 상품 상세 페이지 전용
 
 
-## 🛠️ 빌드 및 실행 방법
-yarn build
-
 ### 개발 환경 실행
 ```bash
 # 의존성 설치
@@ -58,6 +55,7 @@ yarn dev
 ```bash
 # 빌드
 yarn build
+```
 
 
 
