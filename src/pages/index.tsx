@@ -17,6 +17,7 @@ const HomePage: React.FC = () => {
     fetchProductsByCategory,
     fetchProductsWithSort,
     fetchProducts,
+    resetProducts,
     currentSearchQuery,
     products,
     currentCategory,
@@ -60,6 +61,7 @@ const HomePage: React.FC = () => {
     // 검색 결과와 필터 초기화
     setCurrentSort("title");
     setCurrentOrder("asc");
+    resetProducts();
     fetchProducts();
   };
 
